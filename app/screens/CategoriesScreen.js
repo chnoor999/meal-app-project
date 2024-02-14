@@ -15,12 +15,13 @@ export default function CategoriesScreen({ navigation }) {
     <View style={styles.container}>
       <FlatList
         data={data.CATEGORIES}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <CategoriesBox
               onPress={catrgorieHandler.bind(this, item.id, item.title)}
               text={item.title}
               color={item.color}
+              indexBox={index}
             />
           );
         }}
@@ -33,5 +34,6 @@ export default function CategoriesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding:10
   },
 });

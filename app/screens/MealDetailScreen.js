@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import MealMiniDetail from "../components/MealMiniDetail";
 import MealSubTitle from "../components/MealSubTitle";
 import MealTitle from "../components/MealTitle";
 import MealDetailList from "../components/MealDetailList";
+import HeaderIcon from "../components/headerIcon";
+import { useFavouritesContext } from "../store/FavouritesContext";
 
 export default function MealDetailScreen({ route, navigation }) {
   const { mealDetail } = route.params;
@@ -20,6 +22,31 @@ export default function MealDetailScreen({ route, navigation }) {
   const handleImageView = () => {
     navigation.navigate("imageView", { imageUrl: mealDetail.imageUrl });
   };
+
+  const { ids, addToFavourites, removeToFavourites } = useFavouritesContext();
+
+  const isMealFavourites = ids.includes(mealDetail.id)
+
+  const handleFavouritesMeals = () => {
+    if(isMealFavourites){
+      removeToFavourites(mealDetail.id)
+    }else{
+      addToFavourites(mealDetail.id)
+    }
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderIcon
+          onPress={handleFavouritesMeals}
+          name={isMealFavourites ? "star" : "star-outline"}
+          color={"#fff"}
+          size={24}
+        />
+      ),
+    });
+  }, [isMealFavourites]);
 
   return (
     <ScrollView>

@@ -5,14 +5,17 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 // screens
 import StackScreen from "./app/screens/StackScreen";
+import { FavouritesContextProvider } from "./app/store/FavouritesContext";
 
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <StackScreen />
-      </NavigationContainer>
+      <FavouritesContextProvider>
+        <NavigationContainer>
+          <StackScreen />
+        </NavigationContainer>
+      </FavouritesContextProvider>
     </>
   );
 }

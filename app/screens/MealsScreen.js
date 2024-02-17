@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
 // data
 import Data from "../data/Data";
-import MealCard from "../components/MealCard";
+import MealsListing from "../components/MealsListing"
 
 export default function MealsScreen({ route, navigation }) {
   // id of that categories that was clicked
@@ -27,21 +27,7 @@ export default function MealsScreen({ route, navigation }) {
 
   return (
     <View>
-      <FlatList
-        data={filteresMeals}
-        renderItem={({ item }) => {
-          return (
-            <MealCard
-              title={item.title}
-              imageUrl={item.imageUrl}
-              affordability={item.affordability}
-              duration={item.duration}
-              complexity={item.complexity}
-              onPress={handleMeal.bind(this, item)}
-            />
-          );
-        }}
-      />
+      <MealsListing data={filteresMeals} navigation={navigation} />
     </View>
   );
 }

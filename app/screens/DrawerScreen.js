@@ -13,6 +13,12 @@ export default function DrawerScreen() {
         headerStyle: { backgroundColor: "brown" },
         sceneContainerStyle: { backgroundColor: "#a85b5b" },
         headerTintColor: "#fff",
+        drawerStyle:{backgroundColor:"brown"},
+        drawerInactiveBackgroundColor:"#a43b3b",
+        drawerActiveTintColor:"#fff",
+        drawerInactiveTintColor:"#c3c3c3",
+        drawerActiveBackgroundColor:"#d16363",
+        drawerType:"back"
       }}
     >
       <Drawer.Screen name="AllcategoriesScreen" component={CategoriesScreen} />

@@ -2,7 +2,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 export default function CategoriesBox({ text, color, onPress ,indexBox }) {
-  console.log(indexBox)
   return (
     <TouchableOpacity
       activeOpacity={0.7}

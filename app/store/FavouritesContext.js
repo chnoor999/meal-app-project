@@ -23,9 +23,13 @@ export const FavouritesContextProvider = ({ children }) => {
     removeToFavourites: removeToFavourites,
   };
 
-  return <FavouritesContext.Provider value={value}>{children}</FavouritesContext.Provider>;
+  return (
+    <FavouritesContext.Provider value={value}>
+      {children}
+    </FavouritesContext.Provider>
+  );
 };
 
-export const useFavouritesContext = () =>{
-    return useContext(FavouritesContext)
-}
+export const useFavouritesContext = () => {
+  return useContext(FavouritesContext);
+};

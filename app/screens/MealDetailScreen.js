@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect} from "react";
 import MealMiniDetail from "../components/MealMiniDetail";
 import MealSubTitle from "../components/MealSubTitle";
 import MealTitle from "../components/MealTitle";

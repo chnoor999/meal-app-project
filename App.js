@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+//navigation
+import { NavigationContainer } from "@react-navigation/native";
+//screens
+import StackScreens from "./app/screens/navigation/StackScreens";
+//context
+import { FavouritesContextProvider } from "./app/store/Favourites-Context";
 
 export default function App() {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
-  )
+    <FavouritesContextProvider>
+      <NavigationContainer>
+        <StackScreens />
+      </NavigationContainer>
+    </FavouritesContextProvider>
+  );
 }
-
-const styles = StyleSheet.create({})

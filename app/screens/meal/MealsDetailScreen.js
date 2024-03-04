@@ -73,7 +73,7 @@ export default function MealsDetailScreen({ route, navigation }) {
           <Details data={mealData.steps} />
         </View>
         <MiniPhotos
-          glutenFree={mealData.isisGlutenFree}
+          glutenFree={mealData.isGlutenFree}
           vegan={mealData.isVegan}
           vegetarian={mealData.isVegetarian}
           lactoseFree={mealData.isLactoseFree}

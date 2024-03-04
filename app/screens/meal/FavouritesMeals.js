@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 // data
 import Data from "../../data/Data";
 // context
@@ -24,14 +24,14 @@ export default function FavouritesMeals() {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:Colors.black1000,
-    justifyContent:"center",
-    alignItems:"center"
+  container: {
+    flex: 1,
+    backgroundColor: Colors.black1000,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  text:{
-    fontSize:16,
-    color:"#ffffff46"
-  }
+  text: {
+    fontSize: 16,
+    color: "#ffffff46",
+  },
 });

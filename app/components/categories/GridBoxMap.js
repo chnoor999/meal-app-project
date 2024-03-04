@@ -3,7 +3,7 @@ import React from "react";
 //component
 import GridBox from "./GridBox";
 //constant color
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function GridBoxMap({ data }) {
   return (

@@ -9,7 +9,7 @@ const Drawer = createDrawerNavigator();
 import AllCategoriesScreen from "../meal/AllCategoriesScreen";
 import AllMealsScreen from "../meal/AllMealsScreen";
 import FavouritesMealScreen from "../meal/FavouritesMeals";
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function DrawerScreens() {
   return (
@@ -19,6 +19,8 @@ export default function DrawerScreens() {
         drawerStyle: { backgroundColor: Colors.black1000 },
         drawerInactiveTintColor: "#bbbbbb",
         drawerActiveTintColor: Colors.color100,
+        headerTitleStyle:{fontFamily:"openSansBold"},
+        drawerLabelStyle:{fontFamily:"openSansBold"}
       }}
       drawerContent={(props) => {
         return (

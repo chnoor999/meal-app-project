@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Colors } from "../config/colors";
+import { Colors } from "../config/colors/colors";
 
 export default function MiniDetail({ duration, complexity, affordability }) {
   return (
@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.color100,
     fontSize: 12,
+    fontFamily: "openSans",
   },
 });

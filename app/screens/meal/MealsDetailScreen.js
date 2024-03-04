@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 // constant colors
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 //icons
 import { AntDesign } from "@expo/vector-icons";
 // component
@@ -93,12 +93,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     paddingVertical: 20,
-    fontWeight: "bold",
+    fontFamily:"openSansBold"
   },
   title: {
     color: "#fff",
     textAlign: "center",
     fontSize: 16,
+    fontFamily:"openSans"
   },
   icon: {
     padding: 5,

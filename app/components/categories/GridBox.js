@@ -1,7 +1,7 @@
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import React from "react";
 // constant colors
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 // navigation
 import { useNavigation } from "@react-navigation/native";
 
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "openSansBold",
     textAlignVertical: "center",
     flex: 1,
     textAlign: "center",

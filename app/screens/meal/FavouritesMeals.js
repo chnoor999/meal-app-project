@@ -6,7 +6,7 @@ import Data from "../../data/Data";
 import { useFavouritesContext } from "../../store/Favourites-Context";
 //component
 import MealCardMap from "../../components/meal/MealCardMap";
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function FavouritesMeals() {
   const { id } = useFavouritesContext();

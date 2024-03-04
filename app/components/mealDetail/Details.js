@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 //constant colors
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function Details({ data }) {
   return (
@@ -23,10 +23,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.color500,
     borderRadius: 6,
     margin: 10,
-    paddingHorizontal:10
+    paddingHorizontal: 10,
   },
   text: {
     paddingVertical: 6,
+    fontFamily: "openSans",
   },
   separator: {
     borderBottomWidth: 1,

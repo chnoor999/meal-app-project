@@ -6,7 +6,7 @@ import MealsScreen from "../meal/MealsScreen";
 import MealDetailScreen from "../meal/MealsDetailScreen";
 import MealImageScreen from "../meal/MealImageScreen";
 import DrawerScreens from "./DrawerScreens";
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function StackScreens() {
   return (
@@ -14,6 +14,7 @@ export default function StackScreens() {
       screenOptions={{
         headerStyle: { backgroundColor: Colors.color600 },
         animation: "slide_from_right",
+        headerTitleStyle:{fontFamily:"openSansBold"}
       }}
     >
       <Stack.Screen

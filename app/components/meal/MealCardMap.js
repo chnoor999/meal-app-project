@@ -3,7 +3,7 @@ import React from "react";
 // data
 import MealCard from "./MealCard";
 //constant color
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 
 export default function MealCardMap({ data }) {
   return (

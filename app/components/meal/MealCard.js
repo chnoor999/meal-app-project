@@ -1,7 +1,7 @@
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import React from "react";
 //colors
-import { Colors } from "../../config/colors";
+import { Colors } from "../../config/colors/colors";
 // component
 import MealImage from "../MealImage";
 //navigation
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily:"openSansBold",
     fontSize: 16,
     textAlignVertical: "center",
     flex: 1,

@@ -5,14 +5,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { memo } from "react";
 import { Colors } from "../../config/colors/colors";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
-export default function FilterList({
-  data,
-  onPress,
-  categoriesID,
-  preferenceIdentity,
-}) {
+const FilterList = ({ data, onPress, categoriesID, preferenceIdentity }) => {
   return (
     <FlatList
       data={data}
@@ -35,7 +35,9 @@ export default function FilterList({
       numColumns={4}
     />
   );
-}
+};
+
+export default memo(FilterList);
 
 const styles = StyleSheet.create({
   textContainer: {
@@ -45,11 +47,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 5,
+    paddingVertical: hp(0.6),
+    paddingHorizontal: wp(1.4),
     margin: 5,
   },
   text: {
     color: "#fff",
     fontFamily: "openSans",
+    fontSize:hp(1.65)
   },
   check: {
     width: 12,

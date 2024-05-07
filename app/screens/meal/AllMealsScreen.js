@@ -4,7 +4,6 @@ import { Colors } from "../../config/colors/colors";
 import Data, { preference } from "../../data/Data";
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
 import MealCardList from "../../components/meal/MealCardList";

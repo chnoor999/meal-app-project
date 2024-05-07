@@ -15,3 +15,9 @@ Users can mark meals as favorites, which are then displayed in the favorites scr
 
 Filtering Meals: 
 The app allows users to filter meals based on categories and dietary preferences
+
+Full Responsiveness:
+Implementing full responsiveness ensures that your app adapts flawlessly to various screen sizes using react native responsive.
+
+Performance Optimization:
+Optimizing the app for performance ensures that it runs smoothly and efficiently, providing users with a seamless experience.

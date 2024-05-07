@@ -20,12 +20,13 @@ const FilterList = ({ data, onPress, categoriesID, preferenceIdentity }) => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
+            // if there object have title key then it take category id otherwise it take preference item
             item.title ? onPress(item.id) : onPress(item);
           }}
           style={styles.textContainer}
         >
           <Text style={styles.text}>
-            {item.title ? item.title : item.slice(2, 50)}
+            {item.title ? item.title : item.slice(2)}
           </Text>
           {(item.title
             ? categoriesID == item.id
@@ -54,11 +55,11 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontFamily: "openSans",
-    fontSize:hp(1.65)
+    fontSize: hp(1.65),
   },
   check: {
-    width: 12,
-    height: 12,
+    width: wp(100) >= 768 ? 16 : 12,
+    height: wp(100) >= 768 ? 16 : 12,
     backgroundColor: "red",
     borderRadius: 50,
     position: "absolute",

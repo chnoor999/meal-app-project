@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { memo } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Colors } from "../../config/colors/colors";
 
-export default function FilterButton({ onPress, dot }) {
+const FilterButton = ({ onPress, active }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -12,10 +12,12 @@ export default function FilterButton({ onPress, dot }) {
     >
       <FontAwesome name="filter" size={24} color="black" />
       <Text style={styles.filterText}>Filter</Text>
-      {dot && <View style={styles.dot} />}
+      {active && <View style={styles.dot} />}
     </TouchableOpacity>
   );
-}
+};
+
+export default memo(FilterButton);
 
 const styles = StyleSheet.create({
   iconContainer: {

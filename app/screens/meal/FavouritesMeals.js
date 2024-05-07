@@ -1,27 +1,31 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
-// data
-import Data from "../../data/Data";
-// context
 import { useFavouritesContext } from "../../store/Favourites-Context";
-//component
-import MealCardMap from "../../components/meal/MealCardList";
 import { Colors } from "../../config/colors/colors";
+import { memo, useMemo } from "react";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-export default function FavouritesMeals() {
+import Data from "../../data/Data";
+import MealCardList from "../../components/meal/MealCardList";
+
+const FavouritesMeals = () => {
   const { id } = useFavouritesContext();
 
   // filter favourite meals
-  const favouriteMeals = Data.MEALS.filter((item) => id.includes(item.id));
+  const favouriteMeals = useMemo(
+    () => Data.MEALS.filter((item) => id.includes(item.id)),
+    [Data.MEALS, id]
+  );
 
   return !!favouriteMeals.length ? (
-    <MealCardMap data={favouriteMeals} />
+    <MealCardList data={favouriteMeals} />
   ) : (
     <View style={styles.container}>
-      <Text style={styles.text}>No favorite Meals Yet!</Text>
+      <Text style={styles.text}>No Favourite Meals Yet!</Text>
     </View>
   );
-}
+};
+
+export default memo(FavouritesMeals);
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 16,
+    fontSize: hp(1.66),
     color: "#ffffff46",
   },
 });

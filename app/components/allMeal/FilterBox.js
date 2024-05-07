@@ -1,43 +1,87 @@
 import { StyleSheet, Text, View } from "react-native";
-import { memo } from "react";
+import { memo, useCallback, useLayoutEffect, useState } from "react";
 import { Colors } from "../../config/colors/colors";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
+import Data, { preference } from "../../data/Data";
 
 import FilterList from "./FilterList";
 import MyButton from "../ui/MyButton";
+import FilterButton from "./FilterButton";
 
-const FilterBox = ({
-  visible,
-  onClear,
-  categories,
-  preference,
-  onCategoriesPress,
-  categoriesID,
-  preferenceIdentity,
-}) => {
+const FilterBox = ({ activeFilters, setActiveFilters }) => {
+  const navigation = useNavigation();
+  const [filterBoxVisible, setFilterBoxVisible] = useState(false);
+
+  const toggleFilterHandler = useCallback(() => {
+    setFilterBoxVisible((pre) => !pre);
+  }, []);
+
+  const onClearFilterHandler = useCallback(() => {
+    setFilterBoxVisible(false);
+    setActiveFilters({
+      categoryFilter: "",
+      preferenceFilter: "",
+    });
+  }, []);
+
+  const onFilterListPressHandler = useCallback((item) => {
+    setActiveFilters((pre) => {
+      return {
+        categoryFilter:
+          // if the item lenght is smaller 3 then it is id of category
+          item.length <= 3
+            ? pre.categoryFilter == item
+              ? ""
+              : item
+            : pre.categoryFilter,
+        preferenceFilter:
+          // if the item lenght is greater than 3 thant it is preference
+          item.length > 3
+            ? pre.preferenceFilter == item
+              ? ""
+              : item
+            : pre.preferenceFilter,
+      };
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <FilterButton
+          active={
+            activeFilters.categoryFilter || activeFilters.preferenceFilter
+          }
+          onPress={toggleFilterHandler}
+        />
+      ),
+    });
+  }, [activeFilters]);
+
   return (
-    visible && (
+    filterBoxVisible && (
       <View style={styles.container}>
-        <View style={styles.btnsContainer}>
+        <View style={styles.filterHeaderContainer}>
           <Text style={[styles.title, { color: "#fff" }]}>Search Filter</Text>
-          <MyButton onPress={onClear}>Clear Filter</MyButton>
+          <MyButton onPress={onClearFilterHandler}>Clear Filter</MyButton>
         </View>
 
         <Text style={styles.title}>Categories</Text>
         <FilterList
-          data={categories}
-          onPress={onCategoriesPress}
-          categoriesID={categoriesID}
+          categoriesID={activeFilters.categoryFilter}
+          data={Data.CATEGORIES}
+          onPress={onFilterListPressHandler}
         />
 
         <Text style={styles.title}>Dietary Preferences</Text>
         <FilterList
+          preferenceIdentity={activeFilters.preferenceFilter}
           data={preference}
-          onPress={onCategoriesPress}
-          preferenceIdentity={preferenceIdentity}
+          onPress={onFilterListPressHandler}
         />
       </View>
     )
@@ -57,7 +101,7 @@ const styles = StyleSheet.create({
     fontFamily: "openSansBold",
     fontSize: hp(1.7),
   },
-  btnsContainer: {
+  filterHeaderContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

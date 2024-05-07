@@ -1,93 +1,45 @@
 import { StyleSheet, Text, View } from "react-native";
-import { memo, useLayoutEffect, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { Colors } from "../../config/colors/colors";
-import Data, { preference } from "../../data/Data";
-import {
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import Data from "../../data/Data";
 import MealCardList from "../../components/meal/MealCardList";
-import FilterButton from "../../components/allMeal/FilterButton";
 import FilterBox from "../../components/allMeal/FilterBox";
 
-const AllMealsScreen = ({ navigation }) => {
-  const [FilterBoxVisible, setFilterboxVisible] = useState(false);
-  const [categoriesID, setCategoriesID] = useState("");
-  const [preferenceIdentity, setPreferenceIdentity] = useState("");
-
-  const onFilterButton = () => {
-    setFilterboxVisible((pre) => !pre);
-  };
-
-  const onRemove = () => {
-    setFilterboxVisible(false);
-    setCategoriesID("");
-    setPreferenceIdentity("");
-  };
-
-  const onCategoriesPress = (id) => {
-    if (id.length > 3) {
-      setPreferenceIdentity((pre) => {
-        if (pre != id) {
-          return id;
-        } else {
-          return pre != id;
-        }
-      });
-    } else {
-      setCategoriesID((pre) => {
-        if (pre != id) {
-          return id;
-        } else {
-          return pre != id;
-        }
-      });
-    }
-  };
-
-  // filtering meal with provided filter
-  const filteredMeals = Data.MEALS.filter((item) => {
-    if (!categoriesID && !preferenceIdentity) {
-      return item;
-    }
-    if (categoriesID && preferenceIdentity) {
-      return (
-        item.categoryIds.includes(categoriesID) &&
-        item[preferenceIdentity] == true
-      );
-    }
-    if (categoriesID) {
-      return item.categoryIds.includes(categoriesID);
-    }
-    if (preference) {
-      return item[preferenceIdentity] == true;
-    }
+const AllMealsScreen = () => {
+  const [activeFilters, setActiveFilters] = useState({
+    categoryFilter: "",
+    preferenceFilter: "",
   });
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <FilterButton
-          dot={!!(!!categoriesID || !!preferenceIdentity)}
-          onPress={onFilterButton}
-        />
-      ),
+  const getFilteredMeal = useMemo(() => {
+    return Data.MEALS.filter((mapItem) => {
+      if (!activeFilters.categoryFilter && !activeFilters.preferenceFilter)
+        return mapItem;
+
+      if (activeFilters.categoryFilter && !activeFilters.preferenceFilter)
+        return mapItem.categoryIds.includes(activeFilters.categoryFilter);
+
+      if (!activeFilters.categoryFilter && activeFilters.preferenceFilter)
+        return mapItem[activeFilters.preferenceFilter] == true;
+
+      if (activeFilters.categoryFilter && activeFilters.preferenceFilter)
+        return (
+          mapItem[activeFilters.preferenceFilter] == true &&
+          mapItem.categoryIds.includes(activeFilters.categoryFilter)
+        );
     });
-  }, [categoriesID, preferenceIdentity]);
+  }, [activeFilters]);
 
   return (
     <>
       <FilterBox
-        visible={FilterBoxVisible}
-        onClear={onRemove}
-        categories={Data.CATEGORIES}
-        preference={preference}
-        onCategoriesPress={onCategoriesPress}
-        categoriesID={categoriesID}
-        preferenceIdentity={preferenceIdentity}
+        activeFilters={activeFilters}
+        setActiveFilters={setActiveFilters}
       />
-      {filteredMeals.length ? (
-        <MealCardList data={filteredMeals} />
+      {getFilteredMeal.length ? (
+        <MealCardList data={getFilteredMeal} />
       ) : (
         <View style={styles.emptyListTextContainer}>
           <Text style={styles.emptyText}>

@@ -1,4 +1,3 @@
-import { useLayoutEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -6,82 +5,74 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-// constant colors
+import { memo, useLayoutEffect } from "react";
 import { Colors } from "../../config/colors/colors";
-//icons
 import { AntDesign } from "@expo/vector-icons";
-// component
-import MealImage from "../../components/MealImage";
+import { useFavouritesContext } from "../../store/Favourites-Context";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import MealImage from "../../components/ui/MealImageWithDetail";
 import Details from "../../components/mealDetail/Details";
 import MiniPhotos from "../../components/mealDetail/MiniPhotos";
-import { useFavouritesContext } from "../../store/Favourites-Context";
 
-export default function MealsDetailScreen({ route, navigation }) {
-  const { mealData } = route.params;
+const MealsDetailScreen = ({ route, navigation }) => {
+  const { item } = route.params;
 
   const { id, addFavourites, removeFavourites } = useFavouritesContext();
 
-  const isFavourites = !!id.includes(mealData.id);
+  const isFavourites = !!id.includes(item.id);
+
+  const toggleFavouriteHandler = () => {
+    isFavourites ? removeFavourites(item.id) : addFavourites(item.id);
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () =>
-        isFavourites ? (
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.7} style={styles.iconContainer}>
           <AntDesign
-            name="heart"
+            name={isFavourites ? "heart" : "hearto"}
             size={24}
             color="black"
-            style={styles.icon}
-            onPress={removeFavourites.bind(this, mealData.id)}
+            onPress={toggleFavouriteHandler}
           />
-        ) : (
-          <AntDesign
-            name="hearto"
-            size={24}
-            color="black"
-            style={styles.icon}
-            onPress={addFavourites.bind(this, mealData.id)}
-          />
-        ),
+        </TouchableOpacity>
+      ),
     });
-  }, [id]);
+  }, [item, id]);
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <TouchableOpacity
-          activeOpacity={0.7}
+          activeOpacity={0.8}
           onPress={() =>
-            navigation.navigate("mealImage", { imageUrl: mealData.imageUrl })
+            navigation.navigate("mealImage", { imageUrl: item.imageUrl })
           }
         >
-          <MealImage
-            imageUrl={mealData.imageUrl}
-            complexity={mealData.complexity}
-            duration={mealData.duration}
-            affordability={mealData.affordability}
-            height={220}
-          />
+          <MealImage item={item} imageHeight={hp(30)} />
         </TouchableOpacity>
-        <Text style={styles.mainTile}>{mealData.title}</Text>
-        <View>
-          <Text style={styles.title}>Ingredients</Text>
-          <Details data={mealData.ingredients} />
-        </View>
-        <View>
-          <Text style={styles.title}>Steps</Text>
-          <Details data={mealData.steps} />
-        </View>
+        <Text style={styles.mainTile}>{item.title}</Text>
+
+        <Text style={styles.title}>Ingredients</Text>
+        <Details data={item.ingredients} />
+
+        <Text style={styles.title}>Steps</Text>
+        <Details data={item.steps} />
+
         <MiniPhotos
-          glutenFree={mealData.isGlutenFree}
-          vegan={mealData.isVegan}
-          vegetarian={mealData.isVegetarian}
-          lactoseFree={mealData.isLactoseFree}
+          glutenFree={item.isGlutenFree}
+          vegan={item.isVegan}
+          vegetarian={item.isVegetarian}
+          lactoseFree={item.isLactoseFree}
+          item={item}
         />
       </ScrollView>
     </View>
   );
-}
+};
+
+export default memo(MealsDetailScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -91,17 +82,20 @@ const styles = StyleSheet.create({
   mainTile: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 18,
-    paddingVertical: 20,
-    fontFamily:"openSansBold"
+    fontSize: hp(2.1),
+    paddingVertical: hp(2),
+    fontFamily: "openSansBold",
   },
   title: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 16,
-    fontFamily:"openSans"
+    fontSize: hp(1.9),
+    fontFamily: "openSans",
   },
-  icon: {
+  iconContainer: {
     padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
   },
 });

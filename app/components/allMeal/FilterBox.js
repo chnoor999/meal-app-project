@@ -1,12 +1,11 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { memo } from "react";
 import { Colors } from "../../config/colors/colors";
-import { FlatList } from "react-native-gesture-handler";
-import Data from "../../data/Data";
+
 import FilterList from "./FilterList";
 import MyButton from "../MyButton";
 
-export default function FilterBox({
+const FilterBox = ({
   visible,
   onClear,
   categories,
@@ -14,7 +13,7 @@ export default function FilterBox({
   onCategoriesPress,
   categoriesID,
   preferenceIdentity,
-}) {
+}) => {
   return (
     visible && (
       <View style={styles.container}>
@@ -41,7 +40,9 @@ export default function FilterBox({
       </View>
     )
   );
-}
+};
+
+export default memo(FilterBox);
 
 const styles = StyleSheet.create({
   container: {

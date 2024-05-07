@@ -1,15 +1,17 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-//constant colors
 import { Colors } from "../../config/colors/colors";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 export default function Details({ data }) {
   return (
     <View style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({ item, index }) => (
-          <Text style={styles.text}>{item}</Text>
-        )}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => <Text style={styles.text}>{item}</Text>}
         ItemSeparatorComponent={<View style={styles.separator}></View>}
         scrollEnabled={false}
       />
@@ -19,15 +21,17 @@ export default function Details({ data }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
     backgroundColor: Colors.color500,
     borderRadius: 6,
-    margin: 10,
-    paddingHorizontal: 10,
+    marginVertical: hp(1),
+    marginHorizontal: wp(2),
+    paddingHorizontal: wp(3),
+    paddingVertical: hp(0.5),
   },
   text: {
-    paddingVertical: 6,
     fontFamily: "openSans",
+    fontSize: hp(1.65),
+    paddingVertical: hp(0.6),
   },
   separator: {
     borderBottomWidth: 1,

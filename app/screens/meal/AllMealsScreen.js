@@ -1,21 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-// data
-import Data from "../../data/Data";
-//component
-import MealCardMap from "../../components/meal/MealCardMap";
+import { memo, useLayoutEffect, useState } from "react";
+import { Colors } from "../../config/colors/colors";
+import Data, { preference } from "../../data/Data";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+
+import MealCardList from "../../components/meal/MealCardList";
 import FilterButton from "../../components/allMeal/FilterButton";
 import FilterBox from "../../components/allMeal/FilterBox";
-import { Colors } from "../../config/colors/colors";
 
-export default function AllMealsScreen({ navigation }) {
-  const preference = [
-    "isGlutenFree",
-    "isVegan",
-    "isVegetarian",
-    "isLactoseFree",
-  ];
-
+const AllMealsScreen = ({ navigation }) => {
   const [FilterBoxVisible, setFilterboxVisible] = useState(false);
   const [categoriesID, setCategoriesID] = useState("");
   const [preferenceIdentity, setPreferenceIdentity] = useState("");
@@ -92,7 +88,7 @@ export default function AllMealsScreen({ navigation }) {
         preferenceIdentity={preferenceIdentity}
       />
       {filteredMeals.length ? (
-        <MealCardMap data={filteredMeals} />
+        <MealCardList data={filteredMeals} />
       ) : (
         <View style={styles.emptyListTextContainer}>
           <Text style={styles.emptyText}>
@@ -102,7 +98,9 @@ export default function AllMealsScreen({ navigation }) {
       )}
     </>
   );
-}
+};
+
+export default memo(AllMealsScreen);
 
 const styles = StyleSheet.create({
   emptyListTextContainer: {
@@ -114,5 +112,6 @@ const styles = StyleSheet.create({
   emptyText: {
     color: "#ffffff46",
     textTransform: "capitalize",
+    fontSize: hp(1.66),
   },
 });

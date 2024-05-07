@@ -1,61 +1,54 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, StyleSheet, View } from "react-native";
+import { memo } from "react";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
-export default function MiniPhotos({
-  glutenFree,
-  vegan,
-  vegetarian,
-  lactoseFree,
-}) {
+const MiniPhotos = ({ item }) => {
   return (
     <View style={styles.container}>
-      {glutenFree ? (
-        <View>
-          <Image
-            style={styles.image}
-            source={require("../../assets/images/glutenfree.png")}
-          />
-        </View>
-      ) : null}
-      {lactoseFree ? (
-        <View>
-          <Image
-            style={styles.image}
-            source={require("../../assets/images/lactosefree.png")}
-          />
-        </View>
-      ) : null}
-      {vegan ? (
-        <View>
-          <Image
-            style={styles.image}
-            source={require("../../assets/images/vegan.png")}
-          />
-        </View>
-      ) : null}
-      {vegetarian ? (
-        <View>
-          <Image
-            style={styles.image}
-            source={require("../../assets/images/vegetarian.png")}
-          />
-        </View>
-      ) : null}
+      {item.isGlutenFree && (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/glutenfree.png")}
+        />
+      )}
+      {item.isLactoseFree && (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/lactosefree.png")}
+        />
+      )}
+      {item.isVegan && (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/vegan.png")}
+        />
+      )}
+      {item.isVegetarian && (
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/vegetarian.png")}
+        />
+      )}
     </View>
   );
-}
+};
+
+export default memo(MiniPhotos);
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
-    paddingTop: 25,
-    paddingBottom: 5,
+    gap: wp(3),
+    paddingTop: hp(2.8),
+    paddingBottom: hp(1),
   },
   image: {
-    width: 50,
-    height: 50,
+    width: hp(5),
+    height: hp(5),
   },
 });

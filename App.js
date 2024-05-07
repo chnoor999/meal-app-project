@@ -1,12 +1,9 @@
-//navigation
-import { NavigationContainer } from "@react-navigation/native";
-//screens
 import StackScreens from "./app/screens/navigation/StackScreens";
-//context
+import SplashScreen from "./app/screens/splash/SplashScreen";
+
+import { NavigationContainer } from "@react-navigation/native";
 import { FavouritesContextProvider } from "./app/store/Favourites-Context";
-// use fonts
 import { useFonts } from "expo-font";
-import SplashScreen from "./app/screens/SplashScreen";
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -14,11 +11,15 @@ export default function App() {
     openSans: require("./app/config/fonts/OpenSans-Regular.ttf"),
   });
 
-  return fontLoaded ? (
+  if (!fontLoaded) {
+    return <SplashScreen />;
+  }
+
+  return (
     <FavouritesContextProvider>
       <NavigationContainer>
         <StackScreens />
       </NavigationContainer>
     </FavouritesContextProvider>
-  ) : <SplashScreen/>;
+  );
 }

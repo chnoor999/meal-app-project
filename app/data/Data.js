@@ -1,3 +1,10 @@
+export const preference = [
+  "isGlutenFree",
+  "isVegan",
+  "isVegetarian",
+  "isLactoseFree",
+];
+
 export default Data = {
   CATEGORIES: [
     {

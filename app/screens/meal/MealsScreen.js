@@ -1,23 +1,24 @@
-import { StyleSheet } from "react-native";
-import React, { useLayoutEffect } from "react";
-//data
-import Data from "../../data/Data";
-// component
-import MealCarMap from "../../components/meal/MealCardMap";
+import { memo, useLayoutEffect, useMemo } from "react";
 
-export default function MealsScreen({ route, navigation }) {
+import Data from "../../data/Data";
+import MealCardList from "../../components/meal/MealCardList";
+
+const MealsScreen = ({ route, navigation }) => {
   const { id, categoriesTitle } = route.params;
 
   useLayoutEffect(() => {
     navigation.setOptions({ title: categoriesTitle });
   }, []);
 
-  // filtering meal with there categories id
-  const filteresMeal = Data.MEALS.filter((item) => {
-    return item.categoryIds.includes(id);
-  });
+  const filteredMeal = useMemo(
+    () =>
+      Data.MEALS.filter((item) => {
+        return item.categoryIds.includes(id);
+      }),
+    [Data.MEALS]
+  );
 
-  return <MealCarMap data={filteresMeal} />;
-}
+  return <MealCardList data={filteredMeal} />;
+};
 
-const styles = StyleSheet.create({});
+export default memo(MealsScreen);

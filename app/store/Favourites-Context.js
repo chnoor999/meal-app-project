@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
-import useAsyncStorage from "../hook/useAsyncStorage";
+
+import useAsyncStorage from "../util/useAsyncStorage";
 
 export const FavouritesContext = createContext({
   id: [],
@@ -8,7 +9,6 @@ export const FavouritesContext = createContext({
 });
 
 export const FavouritesContextProvider = ({ children }) => {
-  // this is custom hook state that is stored in asyncStorage
   const [favouriteID, setFavouriteID] = useAsyncStorage("favourite", []);
 
   const addFavourites = (id) => {

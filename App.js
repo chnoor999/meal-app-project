@@ -4,6 +4,7 @@ import SplashScreen from "./app/screens/splash/SplashScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { FavouritesContextProvider } from "./app/store/Favourites-Context";
 import { useFonts } from "expo-font";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -16,10 +17,12 @@ export default function App() {
   }
 
   return (
-    <FavouritesContextProvider>
-      <NavigationContainer>
-        <StackScreens />
-      </NavigationContainer>
-    </FavouritesContextProvider>
+    <GestureHandlerRootView>
+      <FavouritesContextProvider>
+        <NavigationContainer>
+          <StackScreens />
+        </NavigationContainer>
+      </FavouritesContextProvider>
+    </GestureHandlerRootView>
   );
 }
